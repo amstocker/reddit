@@ -26,7 +26,7 @@ inc = .01
 r = praw.Reddit('Reddit test script -- amstocker.wordpress.com')
 thread = r.get_submission(
     submission_id = "1oo0ug",
-    comment_limit=None
+    comment_limit = None
     )
 
 # tracked a comment object
@@ -51,7 +51,8 @@ def increment_users(parent, comments, user_dict):
             user_dict[comment.author] = increment(
                 user_dict[comment.author],
                 user_dict[parent.author],
-                inc)
+                inc
+                )
             if len(comment.replies) > 0:
                 increment_users(comment, comment.replies, user_dict)
 
