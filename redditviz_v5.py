@@ -20,7 +20,7 @@ done = False
 # pygame Surface object to erase screen over time
 eraser = pygame.Surface((w, h))
 eraser.fill((255,236,217))
-eraser.set_alpha(20)
+eraser.set_alpha(10)
 
 # unit increment quantity
 inc = 4
