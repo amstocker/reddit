@@ -2,7 +2,7 @@ import praw
 import csv
 from math import sqrt
 import random
-import time
+from time import localtime, strftime
 import os
 from sys import argv
 
@@ -151,11 +151,13 @@ while CONT == True:
                 except:
                     print "===== CONNECTION ERROR"
                     time.sleep(30)
-                
-            print "updated @",time.time(),"//",thread_id,"//",len(tracked_threads[thread_id]),"comments"
+
+            stime = strftime("%a, %d %b %Y %H:%M:%S", localtime())
+            print "updated @",stime,"//",thread_id,"//",len(tracked_threads[thread_id]),"comments"
         w.writerow(actionlist)
         i -= 1
-        print "updated @",time.time(),"//",len(tracked_users),"users // approx.",i*0.035,"hours left" 
+        stime = strftime("%a, %d %b %Y %H:%M:%S", localtime())
+        print "updated @",stime,"//",len(tracked_users),"users // approx.",i*0.035,"hours left" 
 
     valid = False
     while valid == False:

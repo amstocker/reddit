@@ -11,7 +11,6 @@ bg_color = (255,236,217)
 cx, cy = w/2, h/2
 
 pygame.init()
-clock = pygame.time.Clock()
 screen = pygame.display.set_mode((w, h))
 screen.fill(bg_color)
 pygame.display.flip()
