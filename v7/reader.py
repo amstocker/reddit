@@ -153,11 +153,11 @@ while CONT == True:
                     time.sleep(30)
 
             stime = strftime("%a, %d %b %Y %H:%M:%S", localtime())
-            print "updated @",stime,"//",thread_id,"//",len(tracked_threads[thread_id]),"comments"
+            print stime,"// updated",thread_id,"with",len(tracked_threads[thread_id]),"comments"
         w.writerow(actionlist)
         i -= 1
         stime = strftime("%a, %d %b %Y %H:%M:%S", localtime())
-        print "updated @",stime,"//",len(tracked_users),"users // approx.",i*0.035,"hours left" 
+        print stime,"// updated",len(tracked_users),"users // approx.",i*0.035,"hours left" 
 
     valid = False
     while valid == False:
