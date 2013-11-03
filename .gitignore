@@ -1,0 +1,6 @@
+*.csv
+*.pyc
+*.swp
+*.mp4
+.DS_Store
+*.ts
