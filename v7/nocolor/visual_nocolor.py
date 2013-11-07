@@ -7,7 +7,6 @@ from sys import argv
 # pygame
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 w, h = 1024, 768
-# bg_color = (255,236,217)
 bg_color = (0,0,0)
 cx, cy = w/2, h/2
 
@@ -24,7 +23,7 @@ eraser.set_alpha(15)
 
 tracking = {}
 
-def render_user(p, color):
+def render_user(p):
     pygame.draw.circle(screen, (0,0,0), p, 6)
     pygame.draw.circle(screen, (0,255,0), p, 5)
 
@@ -36,15 +35,10 @@ for actions in reader:
     tstr = actions[0]
     length = len(actions)
     while index < length:
-        action = actions[index]
-        if action == 'new':
-            exec('tracking[actions[index+1]] = ' + actions[index+2])
-            index += 3
-        else:
-            exec('pos = ' + actions[index+1])
+            exec('pos = ' + actions[index])
             dest = (int(cx+pos[0]), int(cy+pos[1]))
-            render_user(dest, tracking[action])
-            index += 2
+            render_user(dest)
+            index += 1
     pygame.draw.rect(screen, (0,0,0), [0,0,190,23])
     screen.blit(font.render(tstr, False, (255,255,255)), (5,5))
     pygame.display.flip()

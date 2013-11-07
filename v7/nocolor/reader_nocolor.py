@@ -15,7 +15,6 @@ INTERVALS = argv[1]
 tracked_threads = {}
 tracked_threads_queue = []
 tracked_users = {}
-tracked_users_colors = {}
 
 ### -----FUNCTIONS-----
 
@@ -27,24 +26,14 @@ def increment(v1, v2, d):
     p = (p[0]*s, p[1]*s)
     return (v1[0]+p[0], v1[1]+p[1])
 
-def init_parent(thread, alist, user_dict, color_dict):
+def init_parent(thread, user_dict):
     author = str(thread.author)
     user_dict[author]= (
         random.uniform(-1*cx, cx),
         random.uniform(-1*cy, cy)
         )
-    color = (
-        random.randint(0,255),
-        random.randint(0,255),
-        random.randint(0,255)
-        )
-    color_dict[author] = color
-    # csv
-    alist.append('new')
-    alist.append(author)
-    alist.append(color)
 
-def update_users(parent, comments, alist, user_dict, comment_list, color_dict):
+def update_users(parent, comments, alist, user_dict, comment_list):
     for comment in comments:
         if comment.__class__.__name__ != 'MoreComments':
             if comment.fullname not in comment_list:
@@ -55,16 +44,6 @@ def update_users(parent, comments, alist, user_dict, comment_list, color_dict):
                         random.uniform(-1*cx, cx),
                         random.uniform(-1*cy, cy)
                         )
-                    color = (
-                        random.randint(0,255),
-                        random.randint(0,255),
-                        random.randint(0,255)
-                        )
-                    color_dict[author] = color
-                    # csv
-                    alist.append('new')
-                    alist.append(author)
-                    alist.append(color)
                 else:
                     try:
                         npos = increment(
@@ -73,8 +52,6 @@ def update_users(parent, comments, alist, user_dict, comment_list, color_dict):
                             inc
                             )
                         user_dict[author] = npos
-                        # csv
-                        alist.append(author)
                         alist.append(npos)
                         
                     except KeyError as e:
@@ -88,7 +65,7 @@ def update_users(parent, comments, alist, user_dict, comment_list, color_dict):
                     alist,
                     user_dict,
                     comment_list,
-                    color_dict)
+                    )
 
 def update_threads(reddit, threads_dict, threads_queue, lim):
     top = reddit.get_front_page(limit=lim)
@@ -136,7 +113,6 @@ while CONT == True:
                         thread,
                         actionlist,
                         tracked_users,
-                        tracked_users_colors
                         )
                     update_users(
                         thread,
@@ -144,7 +120,6 @@ while CONT == True:
                         actionlist,
                         tracked_users,
                         tracked_threads[thread_id],
-                        tracked_users_colors
                         )
                     connected = True
                 except:
