@@ -2,7 +2,7 @@ import praw
 import csv
 from math import sqrt
 import random
-from time import localtime, strftime
+from time import localtime, strftime, sleep
 from sys import argv
 
 cx = 1024/2
@@ -126,7 +126,7 @@ while CONT == True:
                 connected = True
             except:
                 print "===== CONNECTION ERROR"
-                time.sleep(30)
+                sleep(30)
         for thread_id in tracked_threads_queue[:THREAD_COUNT]:
             connected = False
             while connected == False:
@@ -149,7 +149,7 @@ while CONT == True:
                     connected = True
                 except:
                     print "===== CONNECTION ERROR"
-                    time.sleep(30)
+                    sleep(30)
 
             stime = strftime("%a, %d %b %Y %H:%M:%S", localtime())
             print stime,"// updated",thread_id,"with",len(tracked_threads[thread_id]),"comments"

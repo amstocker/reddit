@@ -2,7 +2,7 @@ import praw
 import csv
 from math import sqrt
 import random
-from time import localtime, strftime
+from time import localtime, strftime, sleep
 from sys import argv
 
 cx = 1024/2
@@ -53,7 +53,6 @@ def update_users(parent, comments, alist, user_dict, comment_list):
                             )
                         user_dict[author] = npos
                         alist.append(npos)
-                        
                     except KeyError as e:
                         args = e.args
                         print "===== USERNAME KEY ERROR"
@@ -103,28 +102,29 @@ while CONT == True:
                 connected = True
             except:
                 print "===== CONNECTION ERROR"
-                time.sleep(30)
+                sleep(30)
         for thread_id in tracked_threads_queue[:THREAD_COUNT]:
             connected = False
             while connected == False:
                 try:
-                    thread = r.get_submission(submission_id = thread_id)
+                    thread = r.get_submission(
+                        submission_id = thread_id
+                        )
                     init_parent(
                         thread,
-                        actionlist,
-                        tracked_users,
+                        tracked_users
                         )
                     update_users(
                         thread,
                         thread.comments,
                         actionlist,
                         tracked_users,
-                        tracked_threads[thread_id],
+                        tracked_threads[thread_id]
                         )
                     connected = True
                 except:
                     print "===== CONNECTION ERROR"
-                    time.sleep(30)
+                    sleep(30)
 
             stime = strftime("%a, %d %b %Y %H:%M:%S", localtime())
             print stime,"// updated",thread_id,"with",len(tracked_threads[thread_id]),"comments"
