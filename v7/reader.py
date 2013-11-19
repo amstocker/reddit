@@ -99,14 +99,11 @@ def update_threads(reddit, threads_dict, threads_queue, lim):
         else:
             del threads_queue[threads_queue.index(thread.id)]
             threads_queue.insert(0, thread.id)
-
-
+            
 
 ### -----MAIN-----
             
 r = praw.Reddit('Reddit graphing script -- amstocker.wordpress.com')
-f = open("actions.csv", "w")
-w = csv.writer(f)
 THREAD_COUNT = 50
 
 CONT = True
@@ -153,7 +150,10 @@ while CONT == True:
 
             stime = strftime("%a, %d %b %Y %H:%M:%S", localtime())
             print stime,"// updated",thread_id,"with",len(tracked_threads[thread_id]),"comments"
+        f = open("actions.csv", "a")
+        w = csv.writer(f)
         w.writerow(actionlist)
+        f.close()
         i -= 1
         stime = strftime("%a, %d %b %Y %H:%M:%S", localtime())
         print stime,"// updated",len(tracked_users),"users // approx.",i*0.036,"hours left" 
@@ -171,8 +171,6 @@ while CONT == True:
                 valid = True
         except:
             print 'invalid entry'
-
-f.close()
         
 
 
